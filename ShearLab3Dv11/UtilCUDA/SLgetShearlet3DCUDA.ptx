@@ -1,0 +1,141 @@
+	.version 1.4
+	.target sm_13
+	// compiled with /afs/math.tu-berlin.de/software/nvidia/cuda/4.2/open64/lib//be
+	// nvopencc 4.1 built on 2012-04-05
+
+	//-----------------------------------------------------------
+	// Compiling /tmp/tmpxft_00007a52_00000000-9_SLgetShearlet3DCUDA.cpp3.i (/tmp/ccBI#.tVDPKD)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_13, Endian:little, Pointer Size:64
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"/tmp/tmpxft_00007a52_00000000-8_SLgetShearlet3DCUDA.cudafe2.gpu"
+	.file	3	"/usr/lib64/gcc/x86_64-suse-linux/4.5/include/stddef.h"
+	.file	4	"/afs/math/software/nvidia/cuda/4.2/bin/../include/crt/device_runtime.h"
+	.file	5	"/afs/math/software/nvidia/cuda/4.2/bin/../include/host_defines.h"
+	.file	6	"/afs/math/software/nvidia/cuda/4.2/bin/../include/builtin_types.h"
+	.file	7	"/afs/math/software/nvidia/cuda/4.2/bin/../include/device_types.h"
+	.file	8	"/afs/math/software/nvidia/cuda/4.2/bin/../include/driver_types.h"
+	.file	9	"/afs/math/software/nvidia/cuda/4.2/bin/../include/surface_types.h"
+	.file	10	"/afs/math/software/nvidia/cuda/4.2/bin/../include/texture_types.h"
+	.file	11	"/afs/math/software/nvidia/cuda/4.2/bin/../include/vector_types.h"
+	.file	12	"/afs/math/software/nvidia/cuda/4.2/bin/../include/device_launch_parameters.h"
+	.file	13	"/afs/math/software/nvidia/cuda/4.2/bin/../include/crt/storage_class.h"
+	.file	14	"SLgetShearlet3DCUDA.cu"
+	.file	15	"/afs/math/software/nvidia/cuda/4.2/bin/../include/common_functions.h"
+	.file	16	"/afs/math/software/nvidia/cuda/4.2/bin/../include/math_functions.h"
+	.file	17	"/afs/math/software/nvidia/cuda/4.2/bin/../include/math_constants.h"
+	.file	18	"/afs/math/software/nvidia/cuda/4.2/bin/../include/device_functions.h"
+	.file	19	"/afs/math/software/nvidia/cuda/4.2/bin/../include/sm_11_atomic_functions.h"
+	.file	20	"/afs/math/software/nvidia/cuda/4.2/bin/../include/sm_12_atomic_functions.h"
+	.file	21	"/afs/math/software/nvidia/cuda/4.2/bin/../include/sm_13_double_functions.h"
+	.file	22	"/afs/math/software/nvidia/cuda/4.2/bin/../include/sm_20_atomic_functions.h"
+	.file	23	"/afs/math/software/nvidia/cuda/4.2/bin/../include/sm_20_intrinsics.h"
+	.file	24	"/afs/math/software/nvidia/cuda/4.2/bin/../include/sm_30_intrinsics.h"
+	.file	25	"/afs/math/software/nvidia/cuda/4.2/bin/../include/surface_functions.h"
+	.file	26	"/afs/math/software/nvidia/cuda/4.2/bin/../include/texture_fetch_functions.h"
+	.file	27	"/afs/math/software/nvidia/cuda/4.2/bin/../include/math_functions_dbl_ptx3.h"
+
+
+	.entry _Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3_ (
+		.param .u64 __cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pShearlet3D,
+		.param .u64 __cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pShearletAbsSqrd,
+		.param .s32 __cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pyramid,
+		.param .u64 __cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pShearlet2D1,
+		.param .u64 __cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pShearlet2D2)
+	{
+	.reg .u32 %r<24>;
+	.reg .u64 %rd<17>;
+	.reg .f64 %fd<13>;
+	.reg .pred %p<4>;
+	.loc	14	4	0
+$LDWbegin__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3_:
+	cvt.s32.u16 	%r1, %ctaid.y;
+	cvt.s32.u16 	%r2, %ctaid.x;
+	cvt.u32.u16 	%r3, %nctaid.x;
+	cvt.s32.u16 	%r4, %tid.x;
+	ld.param.s32 	%r5, [__cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pyramid];
+	mov.u32 	%r6, 1;
+	setp.gt.u32 	%p1, %r5, %r6;
+	@%p1 bra 	$Lt_0_2050;
+	.loc	14	13	0
+	mul.lo.u32 	%r7, %r1, %r3;
+	add.u32 	%r8, %r2, %r7;
+	.loc	14	14	0
+	cvt.u32.u16 	%r9, %ntid.x;
+	mul.lo.u32 	%r10, %r1, %r9;
+	add.u32 	%r11, %r4, %r10;
+	bra.uni 	$Lt_0_1794;
+$Lt_0_2050:
+	mul.lo.u32 	%r12, %r4, %r3;
+	add.u32 	%r13, %r2, %r12;
+	mov.u32 	%r14, 2;
+	.loc	14	4	0
+	ld.param.s32 	%r5, [__cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pyramid];
+	.loc	14	14	0
+	setp.ne.s32 	%p2, %r5, %r14;
+	@%p2 bra 	$Lt_0_2562;
+	.loc	14	17	0
+	mov.s32 	%r8, %r13;
+	.loc	14	18	0
+	cvt.u32.u16 	%r15, %ntid.x;
+	mul.lo.u32 	%r16, %r1, %r15;
+	add.u32 	%r11, %r4, %r16;
+	bra.uni 	$Lt_0_2306;
+$Lt_0_2562:
+	.loc	14	21	0
+	mul.lo.u32 	%r17, %r1, %r3;
+	add.u32 	%r8, %r2, %r17;
+	.loc	14	22	0
+	mov.s32 	%r11, %r13;
+$Lt_0_2306:
+$Lt_0_1794:
+	.loc	14	25	0
+	ld.param.u64 	%rd1, [__cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pShearlet2D1];
+	cvt.s64.s32 	%rd2, %r8;
+	mul.wide.s32 	%rd3, %r8, 16;
+	add.u64 	%rd4, %rd1, %rd3;
+	ld.global.v2.f64 	{%fd1,%fd2}, [%rd4+0];
+	.loc	14	28	0
+	ld.param.u64 	%rd5, [__cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pShearlet2D2];
+	cvt.s64.s32 	%rd6, %r11;
+	mul.wide.s32 	%rd7, %r11, 16;
+	add.u64 	%rd8, %rd5, %rd7;
+	ld.global.v2.f64 	{%fd3,%fd4}, [%rd8+0];
+	.loc	14	34	0
+	cvt.u32.u16 	%r18, %nctaid.y;
+	mul.lo.u32 	%r19, %r4, %r18;
+	mul.f64 	%fd5, %fd2, %fd4;
+	mul.f64 	%fd6, %fd1, %fd3;
+	sub.f64 	%fd7, %fd6, %fd5;
+	add.u32 	%r20, %r1, %r19;
+	mul.lo.u32 	%r21, %r20, %r3;
+	add.u32 	%r22, %r2, %r21;
+	cvt.s64.s32 	%rd9, %r22;
+	ld.param.u64 	%rd10, [__cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pShearlet3D];
+	mul.wide.s32 	%rd11, %r22, 16;
+	add.u64 	%rd12, %rd10, %rd11;
+	.loc	14	35	0
+	mul.f64 	%fd8, %fd2, %fd3;
+	mad.rn.f64 	%fd9, %fd1, %fd4, %fd8;
+	st.global.v2.f64 	[%rd12+0], {%fd7,%fd9};
+	.loc	14	37	0
+	mul.f64 	%fd10, %fd9, %fd9;
+	mad.rn.f64 	%fd11, %fd7, %fd7, %fd10;
+	ld.param.u64 	%rd13, [__cudaparm__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3__pShearletAbsSqrd];
+	mul.wide.s32 	%rd14, %r22, 8;
+	add.u64 	%rd15, %rd13, %rd14;
+	st.global.f64 	[%rd15+0], %fd11;
+	.loc	14	39	0
+	exit;
+$LDWend__Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3_:
+	} // _Z19SLgetShearlet3DCUDAP7double2PdiPKS_S3_
+
