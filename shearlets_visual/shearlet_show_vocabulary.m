@@ -15,18 +15,31 @@ end
 
 incr = 0;
 redraw = true;
+show_bar = false;
+
+if(size(dictionary,2) < 50)
+   show_bar = true; 
+end
 
 %  figure('Name','Centroids Vocabulary', 'Position', [726 554 560 420]);
  figure('Name','Centroids Vocabulary', 'Position', [305 95 1612 898]);
 
+ cluster_map = shearlet_init_cluster_map;
+ 
  while true
     
     if(redraw)
         for i=1:dim
             
             subplot(rows,cols,i);
-            shearlet_show_descriptor(dictionary(i+incr,:), i+incr, false);
             
+            if(show_bar)
+                bar(dictionary(i+incr,:));
+            else
+                shearlet_show_descriptor(dictionary(i+incr,:), i+incr, false);
+            end
+            
+            title(['Cluster #' int2str(i+incr)]);
         end
         
         redraw = false;

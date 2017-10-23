@@ -59,7 +59,7 @@ clear VID
 % [VID, COLOR_VID] = load_video_to_mat('walk-simple.avi',160, 1,100);
 % [VID, COLOR_VID] = load_video_to_mat('walk-complex.avi',160, 1,100);
 
-[VID, COLOR_VID] = load_video_to_mat('Sample0001_color.mp4', 160, 1239, 1350);
+[VID, COLOR_VID] = load_video_to_mat('Sample0001_color.mp4', 160, 1239, 1350, true);
 
 % [VID, COLOR_VID] = load_video_to_mat('single_big_triangle_320.avi', 160, 80, 200);
 % [VID, COLOR_VID] = load_video_to_mat('single_big_triangle_still_320.avi', 160, 80, 200);

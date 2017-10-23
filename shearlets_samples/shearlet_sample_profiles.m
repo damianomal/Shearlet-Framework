@@ -14,9 +14,10 @@ clear VID
 % video_filename = 'front_car.mp4';
 % VID = load_video_to_mat(video_filename,160,1,100, true);
 % VID = load_video_to_mat(video_filename,200,1,100, true);
+% VID = load_video_to_mat('Sample0001_color.mp4',160,1239, 1350, true);
 
-% video_filename = 'TRUCK.mp4';
-% VID = load_video_to_mat(video_filename,160,1300,1400, true);
+video_filename = 'TRUCK.mp4';
+VID = load_video_to_mat(video_filename,160,1300,1400, true);
 
 % --- KTH ---
 
@@ -24,7 +25,7 @@ clear VID
 % video_filename = 'person01_walking_d1_uncomp.avi';
 % video_filename = 'person04_running_d1_uncomp.avi';
 % video_filename = 'person04_boxing_d1_uncomp.avi';
-% video_filename = 'person01_handwaving_d1_uncomp.avi';
+% % video_filename = 'person01_handwaving_d1_uncomp.avi';
 % VID = load_video_to_mat(video_filename,160,1,100, true);
 
 % --- PER FRANCESCA
@@ -32,8 +33,8 @@ clear VID
 % VID = load_video_to_mat(video_filename,160,1,100, true);
 % -------------
 
-video_filename = 'carrot_cam2.avi';
-VID = load_video_to_mat(video_filename,160,1,100, true);
+% video_filename = 'carrot_cam2.avi';
+% VID = load_video_to_mat(video_filename,160,1,100, true);
 
 % [VID, COLOR_VID] = load_video_to_mat('walk-simple.avi',160, 1,100);
 % VISUALIZING THE CLUSTERING RESULTS FOR A FIXED NUMBER OF CLUSTERS
@@ -46,13 +47,16 @@ clear COEFFS idxs
 % calculate the representation for a specific frame (frame number 37 of the
 % sequence represented in the VID structure)
 
-TARGET_FRAME = 35; % 72 per truck.mp4
-SCALE_USED = 2;
+TARGET_FRAME = 73; % 72 per truck.mp4
+SCALE_USED = 3;
 SKIP_BORDER = 5;
 
 REPRESENTATION = shearlet_descriptor_fast(COEFFS, TARGET_FRAME, SCALE_USED, idxs, true, true, SKIP_BORDER);
 
 %%
+
+% REPRESENTATION = shearlet_reduce_representation(REPRESENTATION);
+
 
 
 CLUSTER_NUMBER = 8;
@@ -78,7 +82,7 @@ subplot(1,2,2); imshow(img);
 
 st = tic;
 
-scales = [2 2]; % [scale_for_representation scale_for_motion]
+scales = [3 3]; % [scale_for_representation scale_for_motion]
 th = 0.05;
 % th = 0.15;
 % th = 0.01;
@@ -91,10 +95,12 @@ color_maps = zeros(size(COEFFS,1), size(COEFFS,2), size(COEFFS,3), 3);
 
 % dictionary
 CENTROIDS = SORT_CTRS;
+% CENTROIDS = SORT_CTRS_3;
 
 for t=2:90
-    % for t=37
+    %     for t=37
     [REPRESENTATION, angle_map, ~, motion_colored] = shearlet_combined_fast(COEFFS, t, scales, idxs, th, false, true, SKIP_BORDER);
+%     REPRESENTATION = shearlet_reduce_representation(REPRESENTATION);
     CL_IND = shearlet_cluster_by_seeds(REPRESENTATION, COEFFS, CENTROIDS);
     full_cluster_indexes(:,:,t) = shearlet_cluster_image(CL_IND, size(CENTROIDS,1), false, false);
     full_motion(:,:,t) = angle_map(:,:,3);
@@ -109,7 +115,7 @@ fprintf('-- Time for Full Video Repr./Motion Extraction: %.4f seconds\n', toc(st
 
 close all;
 
-SELECTED_PROFILES = 4:8;
+SELECTED_PROFILES = 1:8;
 
 PROF = shearlet_profiles_over_time(full_cluster_indexes, 1, 90, SELECTED_PROFILES);
 clusters_ot_image =  shearlet_plot_profiles_over_time(PROF(:,10:80), SELECTED_PROFILES, 1, false);
@@ -153,38 +159,41 @@ cwheel = shearlet_show_color_wheel(true);
 
 hand = figure('Position', [1 41 1920 963]);
 
-vidObjs = cell(1,4);
-prefix = 'carrot_cam2_scale2and2_th005';
-
-vidObjs{1} = VideoWriter([prefix '_video.avi']);
-vidObjs{1}.Quality = 100;
-vidObjs{1}.FrameRate = 25;
-
-open(vidObjs{1});
-
-vidObjs{2} = VideoWriter([prefix '_motion.avi']);
-vidObjs{2}.Quality = 100;
-vidObjs{2}.FrameRate = 25;
-
-open(vidObjs{2});
-
-vidObjs{3} = VideoWriter([prefix '_direction.avi']);
-vidObjs{3}.Quality = 100;
-vidObjs{3}.FrameRate = 25;
-
-open(vidObjs{3});
-
-vidObjs{4} = VideoWriter([prefix '_clusters.avi']);
-vidObjs{4}.Quality = 100;
-vidObjs{4}.FrameRate = 25;
-
-open(vidObjs{4});
-
 record = true;
+
+if(record)
+    
+    vidObjs = cell(1,4);
+    prefix = 'highway';
+    
+    vidObjs{1} = VideoWriter([prefix '_video.avi']);
+    vidObjs{1}.Quality = 100;
+    vidObjs{1}.FrameRate = 25;
+    
+    open(vidObjs{1});
+    
+    vidObjs{2} = VideoWriter([prefix '_motion.avi']);
+    vidObjs{2}.Quality = 100;
+    vidObjs{2}.FrameRate = 25;
+    
+    open(vidObjs{2});
+    
+    vidObjs{3} = VideoWriter([prefix '_direction.avi']);
+    vidObjs{3}.Quality = 100;
+    vidObjs{3}.FrameRate = 25;
+    
+    open(vidObjs{3});
+    
+    vidObjs{4} = VideoWriter([prefix '_clusters.avi']);
+    vidObjs{4}.Quality = 100;
+    vidObjs{4}.FrameRate = 25;
+    
+    open(vidObjs{4});
+end
 
 while true
     
-    %     count = 36;
+    %         count = 36;
     
     subplot(2,3,1);
     %     imshow(VID(:,:,START_IND-1+count), []);
@@ -242,7 +251,7 @@ while true
     subplot(2,3,6);
     imshow(cwheel);
     
-    pause(0.01);
+    pause(0.001);
     
     if(record)
         for i=1:4
@@ -268,21 +277,24 @@ while true
     
     % skipping last frames
     if(count > size(full_motion,3) || count > END_LIM)
-        %         count = 1;
-        break;
+%         count = 1;
+                break;
     end
     
 end
 
-imwrite(clusters_ot_image_filt, [prefix '_graph.png'], 'png');
-
-close(vidObjs{1});
-close(vidObjs{2});
-close(vidObjs{3});
-close(vidObjs{4});
+if(record)
+    
+    imwrite(clusters_ot_image_filt, [prefix '_graph.png'], 'png');
+    
+    close(vidObjs{1});
+    close(vidObjs{2});
+    close(vidObjs{3});
+    close(vidObjs{4});
+    
+end
 
 close(hand);
-
 
 %% WINDOW-BASED PROFILES COMPARISON (commento rimosso)
 

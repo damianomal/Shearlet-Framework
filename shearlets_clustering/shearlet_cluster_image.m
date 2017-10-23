@@ -6,6 +6,9 @@ if(~exist('cluster_map'))
     cluster_map = shearlet_init_cluster_map;
 end
 
+% cluster_map(2,:) = [0 0 1];
+% cluster_map(3,:) = [0 0 1];
+% cluster_map(4,:) = [0 0 1];
 
 %
 bard = zeros(cluster_num,1);

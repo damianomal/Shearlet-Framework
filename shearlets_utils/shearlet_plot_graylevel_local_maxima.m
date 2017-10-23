@@ -91,8 +91,8 @@ fprintf('-- Found local maxima: %d.\n', size(i,1));
 % frames of the sequence considered
 c=2;
 
-%
-repeated_frames = 5;
+% change to 5
+repeated_frames = 1;
 
 % figure('Position', [-1320 184 1266 594]);
 figure;

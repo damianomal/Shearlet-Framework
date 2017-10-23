@@ -9,15 +9,15 @@ clear VID
 
 % video_filename = '7-0006.mp4';
 % [VID, COLOR_VID] = load_video_to_mat(video_filename,160,1,100, true);
-video_filename = '7-0238.mp4';
-[VID, COLOR_VID] = load_video_to_mat(video_filename,160,80,180, true);
+% video_filename = '7-0238.mp4';
+% [VID, COLOR_VID] = load_video_to_mat(video_filename,160,80,180, true);
 % video_filename = '7-0018.mp4';
 % [VID, COLOR_VID] = load_video_to_mat(video_filename,160,1,100, true);
 
 % video_filename = 'person04_boxing_d1_uncomp.avi';
 % video_filename = 'person01_handwaving_d1_uncomp.avi';
-% video_filename = 'person01_walking_d1_uncomp.avi';
-% [VID, COLOR_VID] = load_video_to_mat(video_filename,160,1,100, true);
+video_filename = 'person01_walking_d1_uncomp.avi';
+[VID, COLOR_VID] = load_video_to_mat(video_filename,160,1,100, true);
 
 % video_filename = 'alessia_rectangle.mp4';
 % [VID, COLOR_VID] = load_video_to_mat(video_filename,160, 600,700, true);
@@ -54,16 +54,16 @@ CONE_WEIGHTS = [1 1 1];
 % CONE_WEIGHTS = [1 1 1];
 
 % video walk-complex.avi
-LOWER_THRESHOLD = 0.5;
-SPT_WINDOW = 9;
-SCALES = [2];
-CONE_WEIGHTS = [1.4 1.2 0.6];
-
-% video walk-complex.avi
-LOWER_THRESHOLD = 0.5;
-SPT_WINDOW = 9;
-SCALES = [2];
-CONE_WEIGHTS = [1.4 1.2 0.6];
+% LOWER_THRESHOLD = 0.5;
+% SPT_WINDOW = 9;
+% SCALES = [2];
+% CONE_WEIGHTS = [1.4 1.2 0.6];
+% 
+% % video walk-complex.avi
+% LOWER_THRESHOLD = 0.5;
+% SPT_WINDOW = 9;
+% SCALES = [2];
+% CONE_WEIGHTS = [1.4 1.2 0.6];
 
 % detect spatio-temporal interesting points within the sequence
 
@@ -71,8 +71,8 @@ close all;
 
 output_name = shearlet_create_video_outname( video_filename, SCALES, LOWER_THRESHOLD, SPT_WINDOW, CONE_WEIGHTS);
 
-% [COORDINATES, CHANGE_MAP] = shearlet_detect_points( VID(:,:,1:91), COEFFS, SCALES, [], LOWER_THRESHOLD, SPT_WINDOW, CONE_WEIGHTS, false, output_name);
-[COORDINATES, CHANGE_MAP] = shearlet_detect_points( VID(:,:,1:end), COEFFS, SCALES, [], LOWER_THRESHOLD, SPT_WINDOW, CONE_WEIGHTS, false, output_name);
+[COORDINATES, CHANGE_MAP] = shearlet_detect_points( VID(:,:,1:91), COEFFS, SCALES, [], LOWER_THRESHOLD, SPT_WINDOW, CONE_WEIGHTS, false, output_name);
+% [COORDINATES, CHANGE_MAP] = shearlet_detect_points( VID(:,:,1:end), COEFFS, SCALES, [], LOWER_THRESHOLD, SPT_WINDOW, CONE_WEIGHTS, false, output_name);
 
 
 %%
